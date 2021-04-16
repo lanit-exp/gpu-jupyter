@@ -2,7 +2,8 @@ LABEL authors="Christoph Schranz <christoph.schranz@salzburgresearch.at>, Mathem
 
 USER root
 
-RUN pip install --no-cache-dir ipyleaflet "plotly>=4.14.3" "ipywidgets>=7.5"
+RUN pip install --upgrade wheel setuptools
+RUN pip install --no-cache-dir ipyleaflet "plotly>=4.14.3" "ipywidgets>=7.5" scikit-build cmake opencv-python jupyter numpy matplotlib
 
 # Install important packages and Graphviz
 RUN set -ex \
@@ -12,6 +13,11 @@ RUN set -ex \
  && apt-get update \
  && apt-get -y install htop apt-utils iputils-ping graphviz libgraphviz-dev openssh-client \
  && pip install --no-cache-dir $buildDeps
+
+RUN apt-get install --no-install-recommends --no-install-suggests tzdata python3-setuptools python3-opencv \
+gnupg2 curl git unzip build-essential pkg-config libgomp1 libopencv-dev libopencv-highgui3.2 \
+libssl-dev libtool libffi-dev libgmp-dev libyaml-cpp-dev -y
+
 
 # Install various extensions
 RUN fix-permissions $CONDA_DIR
