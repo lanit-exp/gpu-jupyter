@@ -17,7 +17,8 @@ RUN conda install --quiet --yes \
 # Check compatibility here:
 # https://pytorch.org/get-started/locally/
 # Installation via conda leads to errors installing cudatoolkit=11.1
-RUN pip install --no-cache-dir torch torchvision torchaudio torchviz
+RUN pip install --no-cache-dir torch==1.9.0+cu111 torchvision==0.10.0+cu111 torchaudio==0.9.0 -f https://download.pytorch.org/whl/torch_stable.html
+# RUN pip install --no-cache-dir torch torchvision torchaudio torchviz
 
 USER root
 
